@@ -1,8 +1,9 @@
 import java.util.Arrays;
 
-public class Tren {
+public class Tren implements Comparable<Tren>{
 	private Vagon vagones[];
 	private int numeroTren;
+	private int prioridad;
 	private char direccion;
 	private int longitudTren;
 	private int x;
@@ -18,6 +19,14 @@ public class Tren {
 		this.vagones();
 	}
 	
+	public int getPrioridad() {
+		return prioridad;
+	}
+
+	public void setPrioridad(int prioridad) {
+		this.prioridad = prioridad;
+	}
+
 	public Vagon getVagon(int j) {
 		return vagones[j];
 	}
@@ -126,14 +135,29 @@ public class Tren {
 		}
 	}
 
-	
-	
-	/*public void movimiento() {
-		for(int i = 0; i < 30; i++) {
-			tren.prioridad();
+	public void ordenarPorPrioridad() {
+		switch (direccion) {
+		case 'A':
+			this.prioridad = 1;
+		case 'B':
+			this.prioridad = 0;
+		case 'I':
+			this.prioridad = 2;
+		case 'D':
+			this.prioridad = 3;
 		}
-	}*/
+	}
 	
-	
+	public int compareTo(Tren o) {
+		if(this.prioridad > o.prioridad) {
+			return -1;
+		}
+		else if(this.prioridad < o.prioridad){
+			return 1;
+		}
+		else {
+			return 0;
+		}
+	}
 
 }
