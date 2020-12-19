@@ -1,13 +1,15 @@
 import java.util.ArrayList;
 
+import java.lang.Math;
+
 public class Tablero {
 	private String tablero[][];
 	private int numTablero;
 	private ArrayList<Tren> conjuntoTrenes = new ArrayList<Tren>();
-
+	private String matrizColisiones[][];
 	public Tablero() {
 		tablero = new String[30][30];
-		
+		matrizColisiones = new String[30][30];
 		for(int i = 0; i < 30; i++) {
 			for(int j = 0; j < 30; j++) {
 				tablero[i][j] = ".";
@@ -21,18 +23,43 @@ public class Tablero {
 	}
 	
 	public void creandoTrenes(int i, char letra, int longitud, int xCoord, int yCoord) {
+		yCoord = Math.abs(yCoord - 29);
 		conjuntoTrenes.add(new Tren(i, letra, longitud, xCoord, yCoord));
 	}
 	
+	
+	
 	public void changeToX(int x, int y) {
-	tablero[x][y] = "X";
+		tablero[x][y] = "X";
 	}
 	
-	public boolean hayColision(Tren tren, Tren tren2) {
+	public void colisiones() {
+		
+		for (int i = 0; i < conjuntoTrenes.size(); i++) {
+			for (int j = 0; j < conjuntoTrenes.get(i).getLongitudTren(); j++) {
+				if (tablero[conjuntoTrenes.get(i).getVagon(j).getEjeX()][conjuntoTrenes.get(i).getVagon(j)
+						.getEjeY()] == ".") {
+					
+					tablero[conjuntoTrenes.get(i).getVagon(j).getEjeX()][conjuntoTrenes.get(i).getVagon(j)
+							.getEjeY()] = String.valueOf(conjuntoTrenes.get(i).getNumeroTren());
+
+				}
+				
+				else {
+					changeToX(conjuntoTrenes.get(i).getVagon(j).getEjeX(), conjuntoTrenes.get(i).getVagon(j)
+						.getEjeY());
+					matrizColisiones[conjuntoTrenes.get(i).getVagon(j).getEjeX()][conjuntoTrenes.get(i).getVagon(j)
+					                                      						.getEjeY()] = "X";
+				}
+			}
+		}
+	}
+	
+	public void comoEsLaColision() {
 		
 	}
 	
-	public void movimientoTrenes(){
+	/*public void movimientoTrenes(){
 		if(conjuntoTrenes != null) {
 			for(int i = 0; i < conjuntoTrenes.size(); i++) {//hacemos que se muevan los trenes
 				conjuntoTrenes.get(i).prioridad();
@@ -44,11 +71,7 @@ public class Tablero {
 			}
 			movimientoTrenes();
 		}
-	}
-	
-	
-	
-	
+	}*/
 	
 
 	public void imprimirTablero() {

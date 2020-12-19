@@ -1,7 +1,6 @@
 import java.util.Arrays;
 
 public class Tren {
-	private Tren tren;
 	private Vagon vagones[];
 	private int numeroTren;
 	private char direccion;
@@ -16,20 +15,14 @@ public class Tren {
 		x = xDireccion;
 		y = yDireccion;
 		vagones = new Vagon[longitud];
-		vagones();
+		this.vagones();
 	}
 	
-
-	public Tren getTren() {
-		return tren;
+	public Vagon getVagon(int j) {
+		return vagones[j];
 	}
-
-
-	public void setTren(Tren tren) {
-		this.tren = tren;
-	}
-
-
+	
+	
 	public Vagon[] getVagones() {
 		return vagones;
 	}
@@ -108,7 +101,6 @@ public class Tren {
 				vagones[t] = new Vagon(direccion, x-t, y);
 			}
 		}
-
 	}
 	
 	
@@ -117,22 +109,24 @@ public class Tren {
 		switch(direccion) {
 			case 'A':
 				for(int i = 0; i < longitudTren; i++) {
-					tren.vagones[i] = tren.vagones[i].direccion(x, y+1);
+					 this.vagones[i].direccion(x, y+1);
 				}
 			case 'B':
 				for(int j = 0; j < longitudTren; j++) {
-					tren.vagones[j] = tren.vagones[j].direccion(x, y-1);
+					this.vagones[j].direccion(x, y-1);
 				}
 			case 'I':
 				for(int k = 0; k < longitudTren; k++) {
-					tren.vagones[k] = tren.vagones[k].direccion(x+1, y);
+					this.vagones[k].direccion(x+1, y);
 				}
 			case 'D':
 				for(int t = 0; t < longitudTren; t++) {
-					tren.vagones[t] =tren.vagones[t].direccion(x-1, y);
+					this.vagones[t].direccion(x-1, y);
 				}
 		}
 	}
+
+	
 	
 	/*public void movimiento() {
 		for(int i = 0; i < 30; i++) {
